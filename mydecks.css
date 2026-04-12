@@ -1,0 +1,90 @@
+
+/* Main Content styles */
+
+#newdeckbtn {
+    display: flex;
+    justify-content: right;
+    color: #ecdece; 
+    background-color: #664435;
+}
+#decksContainer {
+    display: flex;
+    gap: 80px;
+    margin: 80px 20px 10px 20px ;
+    flex-wrap: wrap;
+    max-height: 800px;      /* limit height */
+}
+
+
+/* Deck styles */
+.maindeck {
+    padding: 26px;
+    border: 1px solid #664435;
+    border-radius: 30px;
+    margin: auto;
+    width: 400px;
+    text-align: left;
+    font-size: 1.40rem;
+    background: #f8f5f1;
+}
+.maindeck h2 {
+    margin: 0;
+    font-size: 2.00rem;
+    font-weight: bold;
+}
+.maindeck p {
+    border-bottom: 2px solid #664435;
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+.deckbuttons {
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+}
+
+
+
+/* Deck prompt */
+.prompt {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.promptcontent {
+  background: #eee5dc;
+  padding: 20px;
+  width: 800px;
+  margin: 300px auto;
+  text-align: center;
+  border: 2px solid #664435;
+  border-radius: 28px;
+}
+
+.prompttext {
+  font-size: 18px;
+  text-align: left;
+  padding: 20px;
+}
+
+.promptinput {
+    border: 1px solid #664435;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    font-size: 1.50rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.promptbuttons {
+    display: flex;
+    justify-content: right;
+    margin: 26px 18px;
+    gap: 20px;
+}

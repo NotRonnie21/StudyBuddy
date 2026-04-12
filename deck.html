@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="extra-designs.css">
+    <link rel="stylesheet" href="mydecks.css">
+    <link rel="stylesheet" href="deck.css">
+
+    <title>StudyBuddy</title>
+  </head>
+  <body>
+    <!--header and navigation-->
+    <nav class="headtitle">
+      <div class="titlecontainer">
+        <img src="icon.png" style="width: 40px; height: auto;">
+        <a href="mydecks.html" id="title">Back</a>
+      </div>
+
+      <div class="headerbtns"></div>
+    </nav>
+
+    <!--main content-->
+    <div class="spacer">
+      <div class="mdtopcontainer">
+        <h1 id="deckName"></h1>
+        <button onclick="addCard()" class="mainbtn" id="newcardbtn">+ New Card</button>
+      </div>
+
+      <div id="filterDifficulty">
+        <a class="subtitle">Filter:</a>
+        <button onclick="" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
+        <button onclick="" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
+        <button onclick="" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
+        <button onclick="" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
+      </div>
+
+      <div class="card" id="cardsContainer"></div>
+
+      <div class="ad">
+        <a>Want unlimited decks? Get the app for unlimited decks + advanced quiz modes.</a>
+        <button class="smallbtn" onclick="ad()">Download App</button>
+      </div>
+    </div>
+
+    <!--card creation prompt-->
+    <div id="cardPrompt" class="prompt">
+      <div class="promptcontent">
+        <div class="prompttext">
+          <h2>Create New Card</h2>
+        </div>
+
+        <div>
+          <a class="promptinfotext">QUESTION/TERM</a>
+          <input type="text" class="promptinput" id="cardQuestion" placeholder="Enter question">
+
+          <a class="promptinfotext">ANSWER/DEFINITION</a>
+          <input type="text" class="promptinput" id="cardAnswer" placeholder="Enter answer">
+        </div>
+        
+        <div>
+            <a class="promptinfotext">DIFFICULTY</a>
+            <select id="cardDifficulty" class="promptinput">
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+        </div>
+
+        <div class="promptbuttons">
+          <button class="smallbtn" onclick="closePrompt()" style="color: #5A3A2B; background-color: #f7ede3;">Cancel</button>
+          <button id="saveBtn" class="smallbtn" onclick="saveCard()" style="color: #ecdece; background-color: #664435;">Create Card</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // local storage setup
+      let cards = JSON.parse(localStorage.getItem("cards")) || [];
+
+      // Get ID from URL (example: ?id=123)
+      const params = new URLSearchParams(window.location.search);
+      const deckId = Number(params.get("id"));
+
+      // Get all decks from localStorage
+      const decks = JSON.parse(localStorage.getItem("decks")) || [];
+
+      // Find the deck with matching ID
+      const currentDeck = decks.find((deck) => deck.id === deckId);
+
+      // Show the deck name
+      if (currentDeck) {
+        document.getElementById("deckName").innerText = currentDeck.name;
+      } else {
+        document.getElementById("deckName").innerText = "Deck not found";
+      }
+
+      function saveCard() {
+        const question = document.getElementById("cardQuestion").value;
+        const answer = document.getElementById("cardAnswer").value;
+
+        if (question.trim() === "" || answer.trim() === "") {
+          alert("Please fill in both fields!");
+          return;
+        }
+
+        const editId = document.getElementById("cardPrompt").dataset.editId;
+
+        const difficulty = document.getElementById("cardDifficulty").value;
+
+        if (editId) {
+          // EDIT MODE
+          const card = cards.find((c) => c.id == editId);
+          card.question = question;
+          card.answer = answer;
+          card.difficulty = difficulty;
+
+          // remove edit mode
+          delete document.getElementById("cardPrompt").dataset.editId;
+        } else {
+          // CREATE MODE
+          const newCard = {
+            id: Date.now(),
+            deckId: deckId,
+            question: question,
+            answer: answer,
+            difficulty: difficulty
+          };
+
+          cards.push(newCard);
+        }
+
+        localStorage.setItem("cards", JSON.stringify(cards));
+        renderCards();
+        document.getElementById("cardQuestion").value = "";
+        document.getElementById("cardAnswer").value = "";
+        closePrompt();
+
+        document.getElementById("saveBtn").innerText = "Create Card";
+
+        
+      }
+
+      // Display cards on the page
+      function renderCards() {
+        const container = document.getElementById("cardsContainer");
+        container.innerHTML = "";
+
+        const filteredCards = cards.filter((card) => card.deckId === deckId);
+
+        filteredCards.forEach((card) => {
+          const div = document.createElement("div");
+          div.classList.add("cards");
+
+          div.innerHTML = `
+            <div class="maincard">
+              <!-- <p><strong>${card.difficulty}</strong></p> -->
+
+              <div class=cardinfo>
+                <div>
+                  <h2>Question</h2>
+                  <p>${card.question}</p>
+                </div>
+                <div>
+                  <h2>Answer</h2>
+                  <p>${card.answer}</p>
+                </div>
+              </div>
+
+              <div class="cardbuttons">
+                <button class="smallbtn" onclick="editCard(${card.id})">Edit</button>
+                <button class="smallbtn" style="color: #ecdece; background-color: #664435;" onclick="deleteCard(${card.id})">Delete</button>
+              </div>
+            </div>
+          `;
+
+          container.appendChild(div);
+        });
+      }
+
+      function deleteCard(id) {
+        cards = cards.filter((card) => card.id !== id);
+        localStorage.setItem("cards", JSON.stringify(cards));
+        renderCards();
+      }
+
+      function editCard(id) {
+        const card = cards.find((c) => c.id === id);
+        document.getElementById("cardQuestion").value = card.question;
+        document.getElementById("cardAnswer").value = card.answer;
+        document.getElementById("cardPrompt").dataset.editId = id;
+        document.getElementById("saveBtn").innerText = "Save Changes";
+        document.getElementById("cardPrompt").style.display = "block";
+        document.getElementById("cardDifficulty").value = card.difficulty;
+      }
+
+      function addCard() {
+        document.getElementById("cardPrompt").style.display = "block";
+      }
+
+      function closePrompt() {
+        document.getElementById("cardPrompt").style.display = "none";
+        document.getElementById("saveBtn").innerText = "Create Card";
+        delete document.getElementById("cardPrompt").dataset.editId;
+      }
+
+      function ad() {
+        alert("We're working on the app! Stay tuned :)");
+      }
+
+      window.onload = renderCards;
+    </script>
+  </body>
+</html>

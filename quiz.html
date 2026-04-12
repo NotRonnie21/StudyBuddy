@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="extra-designs.css">
+    <link rel="stylesheet" href="quiz.css">
+
+    <title>StudyBuddy</title>
+  </head>
+
+    <body>
+      
+    
+    <nav class="headtitle">
+
+      <div class="titlecontainer">
+        <img src="icon.png" style="width: 40px; height: auto;">
+        <a href="main.html" id="title">StudyBuddy</a>
+      </div>
+
+      <div class="headerbtns">
+        <a href="mydecks.html"><button class="mainbtn">My Decks</button></a>
+        <a href="reviews.html"><button class="mainbtn">Review</button></a>
+        <a href="quiz.html"><button class="mainbtn">Quiz</button></a>
+      </div>
+
+      <a id=cardscounter>No. of Cards</a>
+      
+    </nav>
+
+
+    <div class="spacer">
+
+      <div class="mdtopcontainer">
+        <h1>Quiz Mode</h1>
+      </div>
+      
+      <a class="subtitle">Standard multiple-choice quiz. More Types in the app!</a>
+
+      <div class="quizcontainer">
+        <h1>Set Up Your Quiz</h1>
+        <p>Select Deck</p>
+        <select id="selectDeck" class="smallbtn">
+          <option value="">-- Select a Deck --</option>
+        </select>
+
+        <p>Filter by Difficulty</p>
+        <div id="filterDifficulty">
+          <button onclick="" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
+          <button onclick="" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
+          <button onclick="" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
+          <button onclick="" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
+        </div>
+        <button onclick="openQuiz()" class="mainbtn" id="quizBtn">Start Quiz</button>
+        
+        <div class="ad">
+          <a>Want timed and more quiz types?</a>
+          <button class="smallbtn" onclick="ad()">Get full quiz modes in App</button>
+        </div>
+
+      </div>
+    </div>
+    
+  <script>
+  let decks = JSON.parse(localStorage.getItem("decks")) || [];
+  const selectDeck = document.getElementById("selectDeck");
+
+  function renderDeckOptions() {
+    if (decks.length === 0) {
+      selectDeck.innerHTML = `<option value="">No decks available</option>`;
+      return;
+    }
+
+    decks.forEach((deck, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = deck.name; // assuming deck has a name
+      selectDeck.appendChild(option);
+    });
+  }
+
+  function openQuiz() {
+    const selectedIndex = selectDeck.value;
+
+    if (selectedIndex === "") {
+      alert("Please select a deck first!");
+      return;
+    }
+
+    const selectedDeck = decks[selectedIndex];
+
+    // save for next page if needed
+    localStorage.setItem("currentReviewDeck", JSON.stringify(selectedDeck));
+
+    alert("Starting review for: " + selectedDeck.name);
+  }
+
+  renderDeckOptions();
+</script>
+    
+  </body>
+</html>

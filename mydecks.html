@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="extra-designs.css">
+    <link rel="stylesheet" href="mydecks.css">
+
+    <title>StudyBuddy</title>
+  </head>
+  <body>
+    <!--header and navigation-->
+    <nav class="headtitle">
+      <div class="titlecontainer">
+        <img src="icon.png" style="width: 40px; height: auto;">
+        <a href="main.html" id="title">StudyBuddy</a>
+      </div>
+
+      <div class="headerbtns">
+        <a href="mydecks.html"><button class="mainbtn">My Decks</button></a>
+        <a href="reviews.html"><button class="mainbtn">Review</button></a>
+        <a href="quiz.html"><button class="mainbtn">Quiz</button></a>
+      </div>
+
+      <a id="cardscounter">No. of Cards</a>
+    </nav>
+
+    <!--main content-->
+    <div class="spacer">
+      <div class="mdtopcontainer">
+        <h1>My Decks</h1>
+        <button onclick="addDeck()" class="mainbtn" id="newdeckbtn">+ New Deck</button>
+      </div>
+
+      <a class="subtitle">Organize your flashcard by subject</a>
+      <div class="deck" id="decksContainer"></div>
+
+      <div class="ad">
+        <a>Want unlimited decks? Get the app for unlimited decks + advanced quiz modes.</a>
+        <button class="smallbtn" onclick="ad()">Download App</button>
+      </div>
+    </div>
+
+    <!--deck creation prompt-->
+    <div id="deckPrompt" class="prompt">
+      <div class="promptcontent">
+        <div class="prompttext">
+          <h2>Create New Deck</h2>
+          <a style="color: #A67C5B;">DECK NAME</a>
+        </div>
+
+        <div>
+          <input type="text" class="promptinput" id="deckName" placeholder="Enter deck name">
+        </div>
+
+        <div class="promptbuttons">
+          <button class="smallbtn" onclick="closePrompt()" style="color: #5A3A2B; background-color: #f7ede3;">Cancel</button>
+          <button class="smallbtn" onclick="saveDeck()" style="color: #ecdece; background-color: #664435;">Create Deck</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // local storage setup
+      let decks = JSON.parse(localStorage.getItem("decks")) || [];
+      let cards = JSON.parse(localStorage.getItem("cards")) || [];
+
+      // ensure all decks have a cards array
+      
+
+      // update card counter in header
+      function updateCounter() {
+        document.getElementById("cardscounter").innerText =
+          "No. of Cards: " + decks.length;
+      }
+
+      // Save new deck to local storage
+      function saveDeck() {
+        const name = document.getElementById("deckName").value;
+
+        if (name.trim() === "") {
+          alert("Please enter a name!");
+          return;
+        }
+
+        if (decks.length >= 2) {
+          alert("You can only create up to 2 decks!");
+          return;
+        }
+
+        // Create a new deck object with unique ID
+        const newDeck = {
+          id: Date.now(),
+          name: name,
+          cards: []
+        };
+
+        // Add the new deck to the array
+        decks.push(newDeck);
+        localStorage.setItem("decks", JSON.stringify(decks));
+
+        renderDecks();
+        document.getElementById("deckName").value = "";
+        closePrompt();
+      }
+
+      // Display decks on the page
+      function renderDecks() {
+        const container = document.getElementById("decksContainer");
+        container.innerHTML = "";
+
+        decks.forEach((deck) => {
+          const div = document.createElement("div");
+          div.classList.add("decks");
+
+          div.innerHTML = `
+            <div class="maindeck">
+              <img src="placeholder.png" style="width: 80px;">
+              <h2>${deck.name}</h2>
+              <p>
+                ${
+                cards.filter(card => card.deckId === deck.id).length
+              } 
+                ${
+                cards.filter(card => card.deckId === deck.id).length === 1 ? "Card" : "Cards"
+              }
+              </p>
+              <div class="deckbuttons">
+                <button class="smallbtn" onclick="openDeck(${deck.id})">Open</button>
+                <button class="smallbtn" onclick="deleteDeck(${deck.id})">Delete</button>
+              </div>
+            </div>
+          `;
+
+          container.appendChild(div);
+        });
+
+        updateCounter();
+      }
+
+      function deleteDeck(id) {
+        decks = decks.filter((deck) => deck.id !== id);
+        localStorage.setItem("decks", JSON.stringify(decks));
+        renderDecks();
+      }
+
+      // Opens the deck page with the deck ID
+      function openDeck(id) {
+        window.location.href = `deck.html?id=${id}`;
+      }
+
+      // Shows the new deck prompt
+      function addDeck() {
+        document.getElementById("deckPrompt").style.display = "block";
+      }
+
+      // Closes the new deck prompt
+      function closePrompt() {
+        document.getElementById("deckPrompt").style.display = "none";
+      }
+
+      // Placeholder for ad button
+      function ad() {
+        alert("We're working on the app! Stay tuned :)");
+      }
+
+      // load decks when page opens
+      window.onload = renderDecks;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: #ecdece;
+  margin: 0;
+  color: #5A3A2B;
+}
+
+/* header and title */
+.headtitle {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #f7ede3;
+  margin: 0;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+.titlecontainer {
+  display: flex;
+  align-items: center;
+}
+#title {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.50rem;
+  font-weight: bold;
+  padding: 12px;
+}
+
+/* Styles for the main menu */
+.mainmenu {
+  text-align: center;
+  margin-top: 8%;
+  background-color: #ecdece;
+  margin-bottom: 11%;
+}
+.mainmenu h1{
+  font-size: 7vw;
+  font-style: italic;
+  font-weight: bold;
+  margin: 30px;
+}
+.infotext {
+  font-size: 1.25rem;
+  font-style: italic;
+}
+.titleheader {
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 0 28% 0 28%;
+  background-color: #e4cbb0;
+  font-size: 1.80rem;
+  padding: 3px;
+  font-weight: bold;
+}
+
+/* Styles for the button container */
+.btncontainer{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+.mainbtn {
+  background-color: #e4cbb0;
+  border: 1px solid #664435;
+  border-radius: 14px;
+  color: black;
+  padding: 12px 42px;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.60rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.smallbtn {
+  background-color: #eee5dc;
+  border: 1px solid #664435;
+  border-radius: 8px;
+  padding: 5px 10px;
+  text-align: center;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.30rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+#backtotopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none; /* hidden at first */
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 20px;
+}
+
+
+.appabout1{
+    font-size: 1.25rem;
+    text-align: center;
+    background-color: #f7ede3;
+    padding-bottom: 20px;
+}
+.appabout1 h1 {
+    font-size: 3.50rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 30px;
+}
+.maininfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.infocontainer {
+    border: 1px solid #bd8065;
+    border-radius: 18px;
+    width: 480px;
+    margin: 8px 42px;
+    padding: 20px;
+    background-color: #f8f5f1;
+    text-align: left;
+    height: 280px
+}
+
+.appabout2{
+    font-size: 1.25rem;
+    text-align: center;
+    background-color: inherit;
+    padding: 100px;
+    padding-bottom: 150px;
+}
+.appabout2 h1 {
+    font-size: 3.50rem;
+    font-weight: normal;
+    margin: 0;
+    padding-bottom: 100px;
+}
+.studentcomment{
+    border: 1px solid #bd8065;
+    border-left: 8px solid #664435;
+    border-radius: 50px;
+    width: 400px;
+    margin: 0px 20px;
+    padding: 30px;
+    background-color: #f8f5f1;
+    text-align: left;
+    height: 180px;
+    justify-content: center;
+}
+.studentcomment p{
+  font-style: italic;
+}
+.studentcomment a{
+  color:#bd8065;
+}
+
+.appabout3{
+  display: flex;
+  flex-direction: column;
+  background-color: #ece6e0;
+}
+.aboutcontainers{
+  margin:100px;
+  border-radius: 60px;
+  background-color: #f8f5f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-size: 1.50rem;
+  padding: 40px;
+}
+.aboutcontainers h1{
+  font-size: 3.50rem;
+  font-weight: normal;
+}
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px;
+}
+#socialbtn{
+  border-radius: 20px;
+}
+
+.howtocontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+.howto {
+  border: 1px solid #bd8065;
+  border-radius: 18px;
+  width: 400px;
+  padding: 20px;
+  background-color: #f8f5f1;
+  text-align: left;
+  margin:20px;
+}
+.howto p{
+  text-align: center;
+}
+
+.reviewscontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+    width: 100%;
+    max-height: 800px;     
+}
+.reviewstuff {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #5A3A2B;
+  border-left: 4px solid #5A3A2B;
+  border-radius: 20px;
+  background-color: #f8f5f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-size: 2.00rem;
+  padding: 80px;
+  margin:140px;
+}
+#feedback {
+    padding:10px;
+    font-size: 1.50rem;
+    height: 200px;
+}
+
+.footer{
+  display: flex;
+  flex-direction: column;
+  background-color: #5A3A2B;
+  color:#f8f5f1;
+  padding: 80px;
+  align-items: center;
+}
+.downloadbtn {
+  border-radius: 10px;
+  margin: 20px;
+  color: white; 
+  background-color: #A67C5B;
+  font-size: 1.50rem;
+  font-family: inherit;
+  padding: 12px 24px;
+  border-color: #5A3A2B;
+}

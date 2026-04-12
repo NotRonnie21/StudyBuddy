@@ -1,0 +1,39 @@
+.reviewcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: auto;
+    margin-top: 40px;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 50px;
+    width: 800px;
+    background: #f8f5f1;
+}
+
+.reviewcontainer p {
+    color: #A67C5B;
+    font-size: 1.50rem;
+}
+.reviewcontainer h1 {
+    font-size: 3.00rem;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+#selectDeck {
+    padding: 20px;
+    border: 1px solid #664435;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+#reviewBtn {
+    margin-top: 20px;
+    width: inherit;
+    color: #ecdece; 
+    background-color: #664435;
+}
