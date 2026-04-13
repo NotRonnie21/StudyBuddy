@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
+    <link rel="icon" href="icon.png">
+    
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="extra-designs.css">
     <link rel="stylesheet" href="reviews.css">
@@ -60,9 +62,11 @@
     </div>
     
 <script>
+  // local storage setup
   let decks = JSON.parse(localStorage.getItem("decks")) || [];
   const selectDeck = document.getElementById("selectDeck");
 
+  // Render deck options in the dropdown
   function renderDeckOptions() {
     if (decks.length === 0) {
       selectDeck.innerHTML = `<option value="">No decks available</option>`;
@@ -77,6 +81,7 @@
     });
   }
 
+  // Open review session with selected deck
   function openReview() {
     const selectedIndex = selectDeck.value;
 
@@ -87,12 +92,20 @@
 
     const selectedDeck = decks[selectedIndex];
 
+    // Get all cards and filter by selected deck
+    const allCards = JSON.parse(localStorage.getItem("cards")) || [];
+
+    // Attach cards to the selected deck
+    selectedDeck.cards = allCards.filter(card => card.deckId == selectedDeck.id);
+
     // save for next page if needed
     localStorage.setItem("currentReviewDeck", JSON.stringify(selectedDeck));
 
-    alert("Starting review for: " + selectedDeck.name);
+    // redirect to review session page
+    window.location.href = "review-session.html";
   }
 
+  // DO NOT REMOVEEEE >:[ (Render the cards when the page loads)
   renderDeckOptions();
 </script>
     

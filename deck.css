@@ -33,9 +33,15 @@
 }
 .cardinfo{
     display: flex;
-    text-align: center;
-    gap: 200px;
+    gap: 20px;
     padding: 0 30px 0 30px;
+    width: 100%;
+}
+.cardinfo > div {
+    flex: 1;              /* equal space */
+    max-width: 300px;     /* limit width */
+    word-wrap: break-word;
+    text-align: center;
 }
 .cardinfo h2 {
     margin: 0;

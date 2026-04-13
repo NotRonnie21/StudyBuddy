@@ -1,0 +1,22 @@
+.resultscontainer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    text-align: center;
+}
+.reviewresultscontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: auto;
+    margin-top: 40px;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 50px;
+    width: 800px;
+    background: #f8f5f1;
+    
+    font-size: 1.50rem;
+}

@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" href="icon.png">
+
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="extra-designs.css">
     <link rel="stylesheet" href="mydecks.css">
@@ -63,6 +65,8 @@
     </div>
 
     <script>
+      // Baka makalimutan eh so ill put some notes above each function for me to remember which one is which:
+      
       // local storage setup
       let decks = JSON.parse(localStorage.getItem("decks")) || [];
       let cards = JSON.parse(localStorage.getItem("cards")) || [];
@@ -166,7 +170,7 @@
         alert("We're working on the app! Stay tuned :)");
       }
 
-      // load decks when page opens
+      // DO NOT REMOVEEEE >:[ (Render the cards when the page loads)
       window.onload = renderDecks;
     </script>
   </body>

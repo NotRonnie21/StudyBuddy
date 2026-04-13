@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" href="icon.png">
 
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="extra-designs.css">
@@ -31,10 +33,10 @@
 
       <div id="filterDifficulty">
         <a class="subtitle">Filter:</a>
-        <button onclick="" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
-        <button onclick="" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
-        <button onclick="" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
-        <button onclick="" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
+        <button onclick="setFilter('All')" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
+        <button onclick="setFilter('Easy')" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
+        <button onclick="setFilter('Medium')" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
+        <button onclick="setFilter('Hard')" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
       </div>
 
       <div class="card" id="cardsContainer"></div>
@@ -77,6 +79,11 @@
     </div>
 
     <script>
+      // Baka makalimutan eh so ill put some notes above each function for me to remember which one is which:
+      
+      // filter setup
+      let currentFilter = "All";
+
       // local storage setup
       let cards = JSON.parse(localStorage.getItem("cards")) || [];
 
@@ -97,6 +104,7 @@
         document.getElementById("deckName").innerText = "Deck not found";
       }
 
+      // Save card function (handles both create and edit)
       function saveCard() {
         const question = document.getElementById("cardQuestion").value;
         const answer = document.getElementById("cardAnswer").value;
@@ -148,7 +156,10 @@
         const container = document.getElementById("cardsContainer");
         container.innerHTML = "";
 
-        const filteredCards = cards.filter((card) => card.deckId === deckId);
+        const filteredCards = cards.filter((card) => {
+          return card.deckId === deckId &&
+            (currentFilter === "All" || card.difficulty === currentFilter);
+        });
 
         filteredCards.forEach((card) => {
           const div = document.createElement("div");
@@ -156,7 +167,6 @@
 
           div.innerHTML = `
             <div class="maincard">
-              <!-- <p><strong>${card.difficulty}</strong></p> -->
 
               <div class=cardinfo>
                 <div>
@@ -166,6 +176,10 @@
                 <div>
                   <h2>Answer</h2>
                   <p>${card.answer}</p>
+                </div>
+                <div>
+                  <h2>Difficulty</h2>
+                  <p>${card.difficulty}</p>
                 </div>
               </div>
 
@@ -180,12 +194,14 @@
         });
       }
 
+      // Delete card function
       function deleteCard(id) {
         cards = cards.filter((card) => card.id !== id);
         localStorage.setItem("cards", JSON.stringify(cards));
         renderCards();
       }
 
+      // Edit card function
       function editCard(id) {
         const card = cards.find((c) => c.id === id);
         document.getElementById("cardQuestion").value = card.question;
@@ -196,20 +212,31 @@
         document.getElementById("cardDifficulty").value = card.difficulty;
       }
 
+      // Show card creation prompt
       function addCard() {
         document.getElementById("cardPrompt").style.display = "block";
       }
 
+      // Close card creation prompt
       function closePrompt() {
         document.getElementById("cardPrompt").style.display = "none";
         document.getElementById("saveBtn").innerText = "Create Card";
         delete document.getElementById("cardPrompt").dataset.editId;
       }
 
+      // ad DUHHHH
       function ad() {
         alert("We're working on the app! Stay tuned :)");
       }
 
+      // filter function
+      function setFilter(filter) {
+        currentFilter = filter;
+        renderCards();
+      }
+
+
+      // DO NOT REMOVEEEE >:[ (Render the cards when the page loads)
       window.onload = renderCards;
     </script>
   </body>
