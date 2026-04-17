@@ -18,10 +18,12 @@
     <nav class="headtitle">
       <div class="titlecontainer">
         <img src="icon.png" style="width: 40px; height: auto;">
-        <a href="mydecks.html" id="title">Back</a>
+        <a href="index.html" id="title">StudyBuddy</a>
       </div>
 
-      <div class="headerbtns"></div>
+      <div class="headerbtns">
+        <button class="mainbtn" onclick="window.location.href='mydecks.html'">Back</button>
+      </div>
     </nav>
 
     <!--main content-->
@@ -106,11 +108,17 @@
 
       // Save card function (handles both create and edit)
       function saveCard() {
+        const deckCards = cards.filter(card => card.deckId === deckId);
         const question = document.getElementById("cardQuestion").value;
         const answer = document.getElementById("cardAnswer").value;
 
         if (question.trim() === "" || answer.trim() === "") {
           alert("Please fill in both fields!");
+          return;
+        }
+
+        if (deckCards.length >= 10) {
+          alert("You can only create up to 10 cards! Download the App now to have unlimited Decks");
           return;
         }
 

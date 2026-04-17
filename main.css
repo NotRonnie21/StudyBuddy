@@ -4,9 +4,17 @@ body {
   margin: 0;
   color: #5A3A2B;
 }
+html {
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
+#mainBack {
+  scroll-padding-top: 0px;
+}
 
 /* header and title */
 .headtitle {
+  display: flex;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -17,6 +25,7 @@ body {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  gap: 30px;
 }
 .titlecontainer {
   display: flex;
@@ -28,6 +37,16 @@ body {
   font-size: 1.50rem;
   font-weight: bold;
   padding: 12px;
+}
+#headerBtn  {
+  border: none;
+  background-color: inherit;
+  box-shadow: none;
+}
+#headerBtn:hover{
+  background-color: #e4cbb0;
+  color: #693500;
+
 }
 
 /* Styles for the main menu */
@@ -256,4 +275,17 @@ body {
   font-family: inherit;
   padding: 12px 24px;
   border-color: #5A3A2B;
+}
+.footer1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 2px solid #271208;
+  width: 100%;
+  padding: 20px;
+}
+.socialico {
+  width: 30px;
+  height: auto;
+  padding: 10px;
 }

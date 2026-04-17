@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" href="icon.png">
+
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="extra-designs.css">
+  <link rel="stylesheet" href="reviews.css">
+  <link rel="stylesheet" href="review-session.css">
+  <link rel="stylesheet" href="quiz-session.css">
+
+  <title>StudyBuddy - Quiz</title>
+</head>
+
+<body>
+
+<nav class="headtitle">
+  <div class="titlecontainer">
+    <img src="icon.png" style="width: 40px;">
+    <a href="index.html" id="title">StudyBuddy</a>
+  </div>
+
+  <a id="cardscounter">No. of Decks</a>
+
+  <div class="headerbtns">
+    <a href="mydecks.html"><button class="mainbtn">My Decks</button></a>
+    <a href="reviews.html"><button class="mainbtn">Review</button></a>
+    <a href="quiz.html"><button class="mainbtn">Quiz</button></a>
+  </div>
+</nav>
+
+<div class="spacer">
+
+  <div class="mdtopcontainer">
+    <h1>Quiz Mode</h1>
+  </div>
+
+  <a class="subtitle">Test your knowledge with multiple-choice questions. Goodluck!</a>
+
+  <div class="reviewsessioncontainer">
+    <h1 id="deckName"></h1>
+    <h1>Cards: <span id="cardsCounter"></span></h1>
+
+    <div id="quizcardContainer"></div>
+
+    <div class="reviewsessionbtns">
+      <button class="smallbtn" id="nextBtn" style="display:none;"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+const deck = JSON.parse(localStorage.getItem("currentReviewDeck"));
+
+if (!deck || !deck.cards || deck.cards.length === 0) {
+  alert("No deck found or empty!");
+  window.location.href = "quiz.html";
+}
+
+let currentIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answered = false;
+
+const container = document.getElementById("quizcardContainer");
+
+document.getElementById("deckName").innerText = deck.name;
+
+function updateCounter() {
+  document.getElementById("cardsCounter").innerText =
+    (currentIndex + 1) + " / " + deck.cards.length;
+}
+
+// 🔥 FIXED: always returns something valid
+function getRandomWrongAnswer(correctAnswer) {
+  const otherAnswers = deck.cards
+    .map(c => c.answer)
+    .filter(ans => ans !== correctAnswer);
+
+  if (otherAnswers.length === 0) {
+    return "No alternative answer"; // fallback so it never breaks
+  }
+
+  return otherAnswers[Math.floor(Math.random() * otherAnswers.length)];
+}
+
+function renderCard() {
+  const card = deck.cards[currentIndex];
+  updateCounter();
+
+  answered = false;
+
+  const wrongAnswer = getRandomWrongAnswer(card.answer);
+
+  let choices = [
+    { text: card.answer, correct: true },
+    { text: wrongAnswer, correct: false }
+  ];
+
+  choices.sort(() => Math.random() - 0.5);
+
+  container.innerHTML = `
+    <div class="quizcard">
+      <p>Question</p>
+      <p>${card.question}</p>
+      
+
+      
+    </div>
+
+    <div class="choicebtns">
+        ${choices.map(choice => `
+          <button class="smallbtn" onclick="selectAnswer(this, ${choice.correct})">
+            ${choice.text}
+          </button>
+        `).join("")}
+      </div>
+  `;
+
+  document.getElementById("nextBtn").style.display = "none";
+}
+
+function selectAnswer(button, isCorrect) {
+  if (answered) return;
+
+  answered = true;
+
+  const buttons = document.querySelectorAll(".choiceBtn");
+
+  buttons.forEach(btn => btn.disabled = true);
+
+  if (isCorrect) {
+    button.style.backgroundColor = "green";
+    correctCount++;
+  } else {
+    button.style.backgroundColor = "red";
+    wrongCount++;
+
+    buttons.forEach(btn => {
+      if (btn.innerText === deck.cards[currentIndex].answer) {
+        btn.style.backgroundColor = "green";
+      }
+    });
+  }
+
+  document.getElementById("nextBtn").style.display = "inline-block";
+  updateButtons();
+}
+
+function nextCard() {
+  if (currentIndex < deck.cards.length - 1) {
+    currentIndex++;
+    renderCard();
+  } else {
+    finishQuiz();
+  }
+}
+
+function prevCard() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderCard();
+  }
+}
+
+function updateButtons() {
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (currentIndex < deck.cards.length - 1) {
+    nextBtn.innerText = "Next Question";
+    nextBtn.onclick = nextCard;
+  } else {
+    nextBtn.innerText = "Finish";
+    nextBtn.onclick = finishQuiz;
+  }
+}
+
+function finishQuiz() {
+  localStorage.setItem("quizResults", JSON.stringify({
+    correct: correctCount,
+    wrong: wrongCount,
+    total: deck.cards.length
+  }));
+
+  window.location.href = "quiz-finished.html";
+}
+
+// start
+renderCard();
+</script>
+
+</body>
+</html>

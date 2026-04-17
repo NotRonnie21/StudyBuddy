@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
 
     <title>StudyBuddy</title>
   </head>
+
   <body>
     <!--header and navigation-->
     <nav class="headtitle">
@@ -20,13 +22,15 @@
         <a href="index.html" id="title">StudyBuddy</a>
       </div>
 
-      <div class="headerbtns">
-        <a href="mydecks.html"><button class="mainbtn">My Decks</button></a>
-        <a href="reviews.html"><button class="mainbtn">Review</button></a>
-        <a href="quiz.html"><button class="mainbtn">Quiz</button></a>
-      </div>
+      <a id="cardscounter">No. of Decks</a>
 
-      <a id="cardscounter">No. of Cards</a>
+      <div class="headerbtns">
+        
+
+        <a href="mydecks.html"><button class="mainbtn">My Decks</button></a>
+        <a href="reviews.html"><button class="mainbtn" id="headermainBtns">Review</button></a>
+        <a href="quiz.html"><button class="mainbtn" id="headermainBtns">Quiz</button></a>
+      </div>
     </nav>
 
     <!--main content-->
@@ -36,7 +40,7 @@
         <button onclick="addDeck()" class="mainbtn" id="newdeckbtn">+ New Deck</button>
       </div>
 
-      <a class="subtitle">Organize your flashcard by subject</a>
+      <a class="subtitle">Organize your flashcard by subject. Create a deck now up to 2 decks!</a>
       <div class="deck" id="decksContainer"></div>
 
       <div class="ad">
@@ -89,8 +93,9 @@
           return;
         }
 
+        // Limit Deck Amount
         if (decks.length >= 2) {
-          alert("You can only create up to 2 decks!");
+          alert("You can only create up to 2 decks! Download the App now to have unlimited Decks");
           return;
         }
 
@@ -98,7 +103,8 @@
         const newDeck = {
           id: Date.now(),
           name: name,
-          cards: []
+          cards: [],
+          icon: "deckico/placeholder.png"
         };
 
         // Add the new deck to the array
@@ -121,7 +127,15 @@
 
           div.innerHTML = `
             <div class="maindeck">
-              <img src="placeholder.png" style="width: 80px;">
+              <div class="icon-picker">
+                <img src="${deck.icon}" class="deck-icon" onclick="toggleIcons(this)">
+                <div class="icon-options">
+                  <img src="deckico/icon1.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/icon2.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/icon3.png" onclick="selectIcon(this, ${deck.id})">
+                </div>
+              </div>
+
               <h2>${deck.name}</h2>
               <p>
                 ${
@@ -143,6 +157,24 @@
 
         updateCounter();
       }
+
+      function toggleIcons(img) {
+        const options = img.nextElementSibling;
+        options.style.display = options.style.display === "block" ? "none" : "block";
+      }
+
+      function selectIcon(icon, deckId) {
+        const deck = decks.find(d => d.id === deckId);
+
+        const fileName = icon.src.split("/").pop();
+        deck.icon = "deckico/" + fileName;
+
+        localStorage.setItem("decks", JSON.stringify(decks));
+        renderDecks();
+      }
+
+
+
 
       function deleteDeck(id) {
         decks = decks.filter((deck) => deck.id !== id);

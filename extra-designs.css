@@ -3,8 +3,15 @@
 }
 .headerbtns {
     display: flex;
+
     gap: 30px;
 }
+#headermainBtns {
+    border:none;
+    background-color: inherit;
+    box-shadow: none;
+}
+
 #cardscounter {
     font-size: 24px;
     border: 1px solid black;
@@ -13,6 +20,7 @@
     padding: 10px;
     background-color: #e4cbb0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-left: 250px;
 }
 
 .mdtopcontainer {

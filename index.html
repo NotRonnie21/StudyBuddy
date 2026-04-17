@@ -11,13 +11,22 @@
     <title>StudyBuddy</title>
   </head>
 
-  <body>
-    <div class="headtitle">
+  <body id="mainBack">
+    <nav class="headtitle">
       <div class="titlecontainer">
         <img src="icon.png" style="width: 40px; height: auto;">
-        <a id="title">StudyBuddy</a>
+        <a href="#mainBack" id="title">StudyBuddy</a>
       </div>
-    </div>
+
+      <div class="headerbtns">
+        
+
+        <a href="#aboutSB"><button class="mainbtn" id="headerBtn">About StudyBuddy</button></a>
+        <a href="#howtoSB"><button class="mainbtn" id="headerBtn">How to Use</button></a>
+        <a href="#teamSB"><button class="mainbtn" id="headerBtn">Team</button></a>
+        <a href="#feedbackSB"><button class="mainbtn" id="headerBtn">Feedback</button></a>
+      </div>
+    </nav>
     
 
     <div class="mainmenu">
@@ -36,9 +45,6 @@
       <div class="btncontainer">
         <a href="mydecks.html">
           <button class="mainbtn" style="color: #ecdece; background-color: #664435;">Start Studying</button>
-        </a>
-        <a href="about.html">
-          <button class="mainbtn" style="background-color: #f7ede3; border-color: #664435;">About Us</button>
         </a>
       </div>
     </div>
@@ -139,37 +145,17 @@
       </div>
     </div>
 
-    <div class="appabout3">
+    <div class="appabout3" id="aboutSB">
 
       <div class="aboutcontainers">
         <h1>📖About StudyBuddy</h1>
         <p>StudyBuddy was born to make studying feel like a warm cup of tea — no pressure, just progress. We believe that
           <br>learning should be personal, cozy, and even a little playful. Whether you re preparing for an exam or learning a new
           <br>language, our flashcard system adapts to your pace.</p>
-        
-        <p>Contacts & Socials</p>
-        <div class="socials">
-          <button class="smallbtn" id="socialbtn" onclick="">
-            <img src="placeholder.png" style="width: 20px; height: auto; vertical-align: middle;">
-            studybuddy@learn.com
-          </button>
-          <button class="smallbtn" id="socialbtn" onclick="">
-            <img src="placeholder.png" style="width: 20px; height: auto; vertical-align: middle;">
-            @studybuddy
-          </button>
-          <button class="smallbtn" id="socialbtn" onclick="">
-            <img src="placeholder.png" style="width: 20px; height: auto; vertical-align: middle;">
-            @its_studybuddy
-          </button>
-          <button class="smallbtn" id="socialbtn" onclick="">
-            <img src="placeholder.png" style="width: 20px; height: auto; vertical-align: middle;">
-            Study Buddy
-          </button>
-        </div>
         <p>✨ For support: hello@studybuddy.com ✨</p>
       </div>
 
-      <div class="aboutcontainers">
+      <div class="aboutcontainers" id="howtoSB">
         <h1>🎓 How to use StudyBuddy</h1>
         <div class="howtocontainer">
           <div class="howto">
@@ -207,12 +193,12 @@
         </div>
       </div>
       
-      <div class="aboutcontainers">
+      <div class="aboutcontainers" id="teamSB">
         <h1>Our Team</h1>
       </div>
     </div>
 
-    <div class="reviewcontainer">
+    <div class="reviewcontainer" id="feedbackSB">
       <div class="reviewstuff">
         <a>How satisfied are you with the overall user experience our website provides?</a>
         <br>
@@ -225,7 +211,25 @@
     <div class="footer">
       <a>📚StudyBuddy — Made with love for students everywhere. ✨ Study + Play ✨</a>
       <button class="downloadbtn">Download StudyBuddy</button>
-      <a>© 2024 StudyBuddy. All rights reserved.</a>
+      <div class="footer1">
+        <a>© 2026 StudyBuddy. All rights reserved.</a>
+        <div>
+          <div>
+            <a href="#">
+              <img class="socialico" src="social-ico/instagram.png">
+            </a>
+            <a href="#">
+              <img class="socialico" src="social-ico/facebook.png">
+            </a>
+            <a href="#">
+              <img class="socialico" src="social-ico/twitter.png">
+            </a>
+          </div>
+          <a>Email: studybuddy@learn.com</a>
+        </div>
+        
+      </div>
+    </div>
   </body>
   <script>
     window.onscroll = function () {

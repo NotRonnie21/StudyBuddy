@@ -1,0 +1,51 @@
+#quizcardContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.reviewsessioncontainer {
+    width: 100%;
+    padding: 0; /* test this */
+}
+
+
+.quizcard{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 50px;
+    box-sizing: border-box;
+
+    backface-visibility: hidden;
+    border: 1px solid #e7cfad;
+    border-radius: 60px;
+    background: #f8f5f1;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+
+    font-size: 1.50rem;
+}
+.choicebtns {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 60px;
+}
+
+.smallbtn {
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 2.0rem;
+}
+
+#nextBtn {
+    color: #ecdece; 
+    background-color: #664435;
+}

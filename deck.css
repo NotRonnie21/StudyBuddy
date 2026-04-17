@@ -17,6 +17,10 @@
 .promptcontent {
   margin-top: 100px;
 }
+.headtitle button {
+    color: #ecdece;
+    background-color: #664435;
+}
 
 /* Card */
 .maincard {
