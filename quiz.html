@@ -50,10 +50,10 @@
 
         <p>Filter by Difficulty</p>
         <div id="filterDifficulty">
-          <button onclick="" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
-          <button onclick="" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
-          <button onclick="" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
-          <button onclick="" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
+          <button onclick="setDifficulty('All')" class="smallbtn diff-btn all active">All</button>
+          <button onclick="setDifficulty('Easy')" class="smallbtn diff-btn easy">Easy</button>
+          <button onclick="setDifficulty('Medium')" class="smallbtn diff-btn medium">Medium</button>
+          <button onclick="setDifficulty('Hard')" class="smallbtn diff-btn hard">Hard</button>
         </div>
         <button onclick="openQuiz()" class="mainbtn" id="quizBtn">Start Quiz</button>
         
@@ -68,7 +68,15 @@
 <script>
   // local storage setup
   let decks = JSON.parse(localStorage.getItem("decks")) || [];
+  let cards = JSON.parse(localStorage.getItem("cards")) || [];
   const selectDeck = document.getElementById("selectDeck");
+  let selectedDifficulty = "All";
+
+  // update card counter in header
+      function updateCounter() {
+        document.getElementById("cardscounter").innerText =
+          "No. of Cards: " + cards.length;
+      }
 
   // Render deck options in the dropdown
   function renderDeckOptions() {
@@ -99,8 +107,14 @@
     // get all cards
     const allCards = JSON.parse(localStorage.getItem("cards")) || [];
 
-    // attach cards to deck (IMPORTANT FIX)
-    selectedDeck.cards = allCards.filter(card => card.deckId == selectedDeck.id);
+    // attach cards to deck 
+    selectedDeck.cards = allCards.filter(card => {
+      const sameDeck = card.deckId == selectedDeck.id;
+
+      if (selectedDifficulty === "All") return sameDeck;
+
+      return sameDeck && card.difficulty === selectedDifficulty;
+    });
 
     // extra safety
     if (!selectedDeck.cards || selectedDeck.cards.length === 0) {
@@ -115,8 +129,21 @@
     window.location.href = "quiz-session.html";
   }
 
+    function setDifficulty(level) {
+      selectedDifficulty = level;
+
+      document.querySelectorAll(".diff-btn").forEach(btn => {
+        btn.classList.remove("active");
+
+        if (btn.textContent === level) {
+          btn.classList.add("active");
+        }
+      });
+    }
+
   // DO NOT REMOVE >:[
   renderDeckOptions();
+  updateCounter();
 </script>
     
   </body>

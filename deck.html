@@ -35,16 +35,16 @@
 
       <div id="filterDifficulty">
         <a class="subtitle">Filter:</a>
-        <button onclick="setFilter('All')" class="smallbtn" style="color: #ecdece; background-color: #664435;">All</button>
-        <button onclick="setFilter('Easy')" class="smallbtn" style="color: #005c0f; border: 2px solid #005c0f;">Easy</button>
-        <button onclick="setFilter('Medium')" class="smallbtn" style="color: #be8f6a; border: 2px solid #be8f6a;">Medium</button>
-        <button onclick="setFilter('Hard')" class="smallbtn" style="color: #8b0000; border: 2px solid #8b0000;">Hard</button>
+          <button onclick="setDifficulty('All')" class="smallbtn diff-btn all active">All</button>
+          <button onclick="setDifficulty('Easy')" class="smallbtn diff-btn easy">Easy</button>
+          <button onclick="setDifficulty('Medium')" class="smallbtn diff-btn medium">Medium</button>
+          <button onclick="setDifficulty('Hard')" class="smallbtn diff-btn hard">Hard</button>
       </div>
 
       <div class="card" id="cardsContainer"></div>
 
       <div class="ad">
-        <a>Want unlimited decks? Get the app for unlimited decks + advanced quiz modes.</a>
+        <a>Want unlimited cards? Get the app for unlimited decks + advanced quiz modes.</a>
         <button class="smallbtn" onclick="ad()">Download App</button>
       </div>
     </div>
@@ -85,6 +85,7 @@
       
       // filter setup
       let currentFilter = "All";
+      let selectedDifficulty = "All";
 
       // local storage setup
       let cards = JSON.parse(localStorage.getItem("cards")) || [];
@@ -242,6 +243,20 @@
         currentFilter = filter;
         renderCards();
       }
+
+      function setDifficulty(level) {
+        currentFilter = level;
+
+      document.querySelectorAll(".diff-btn").forEach(btn => {
+        btn.classList.remove("active");
+
+        if (btn.textContent === level) {
+          btn.classList.add("active");
+          
+        }
+      });
+      renderCards();
+    }
 
 
       // DO NOT REMOVEEEE >:[ (Render the cards when the page loads)

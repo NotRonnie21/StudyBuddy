@@ -52,9 +52,14 @@ html {
 /* Styles for the main menu */
 .mainmenu {
   text-align: center;
-  margin-top: 8%;
-  background-color: #ecdece;
-  margin-bottom: 11%;
+
+  background-image: url("backgroundfinal.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 80px 20px;
+  min-height: 80vh;
 }
 .mainmenu h1{
   font-size: 7vw;
@@ -69,11 +74,14 @@ html {
 .titleheader {
   border: 1px solid black;
   border-radius: 20px;
-  margin: 0 28% 0 28%;
+  margin: 5% 28% 0 28%;
   background-color: #e4cbb0;
   font-size: 1.80rem;
   padding: 3px;
   font-weight: bold;
+}
+.mainmenu .btncontainer{
+  margin: 0 0 11% 0;
 }
 
 /* Styles for the button container */
@@ -189,6 +197,8 @@ html {
   background-color: #ece6e0;
 }
 .aboutcontainers{
+  display: flex;
+  flex-direction: column;
   margin:100px;
   border-radius: 60px;
   background-color: #f8f5f1;
@@ -201,6 +211,25 @@ html {
   font-size: 3.50rem;
   font-weight: normal;
 }
+.aboutteamcontainer{
+  display: flex;
+  border: 2px solid #271208;
+  border-radius: 20px;
+  padding:20px;
+  align-items: center;
+  margin: 20px;
+}
+.aboutteamcontainer img{
+  width: 180px;
+  height: 180px;
+}
+.aboutteaminfo{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 20px;
+}
+
 .socials {
   display: flex;
   justify-content: center;
@@ -221,7 +250,7 @@ html {
 .howto {
   border: 1px solid #bd8065;
   border-radius: 18px;
-  width: 400px;
+  width: 500px;
   padding: 20px;
   background-color: #f8f5f1;
   text-align: left;
@@ -289,3 +318,5 @@ html {
   height: auto;
   padding: 10px;
 }
+
+

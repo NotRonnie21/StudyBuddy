@@ -75,3 +75,44 @@
 #cardDifficulty {
     width: 97%;
 }
+
+.diff-btn.easy {
+  color: #005c0f;
+  border: 2px solid #005c0f;
+}
+
+.diff-btn.medium {
+  color: #be8f6a;
+  border: 2px solid #be8f6a;
+}
+
+.diff-btn.hard {
+  color: #8b0000;
+  border: 2px solid #8b0000;
+}
+
+.diff-btn.all {
+  color: #664435;
+  border: 2px solid #664435;
+}
+
+/* ACTIVE STATE (this is the magic) */
+.diff-btn.easy.active {
+  background: #005c0f;
+  color: #fff;
+}
+
+.diff-btn.medium.active {
+  background: #be8f6a;
+  color: #000; /* lighter bg → dark text */
+}
+
+.diff-btn.hard.active {
+  background: #8b0000;
+  color: #fff;
+}
+
+.diff-btn.all.active {
+  background: #664435;
+  color: #ecdece;
+}

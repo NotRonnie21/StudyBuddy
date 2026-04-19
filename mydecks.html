@@ -81,7 +81,7 @@
       // update card counter in header
       function updateCounter() {
         document.getElementById("cardscounter").innerText =
-          "No. of Cards: " + decks.length;
+          "No. of Cards: " + cards.length;
       }
 
       // Save new deck to local storage
@@ -104,7 +104,7 @@
           id: Date.now(),
           name: name,
           cards: [],
-          icon: "deckico/placeholder.png"
+          icon: "deckico/general.png"
         };
 
         // Add the new deck to the array
@@ -130,9 +130,17 @@
               <div class="icon-picker">
                 <img src="${deck.icon}" class="deck-icon" onclick="toggleIcons(this)">
                 <div class="icon-options">
-                  <img src="deckico/icon1.png" onclick="selectIcon(this, ${deck.id})">
-                  <img src="deckico/icon2.png" onclick="selectIcon(this, ${deck.id})">
-                  <img src="deckico/icon3.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/general.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/geo.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/literature.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/math.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/sci.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/space.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/bunny.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/bear.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/cat.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/dog.png" onclick="selectIcon(this, ${deck.id})">
+                  <img src="deckico/dragon.png" onclick="selectIcon(this, ${deck.id})">
                 </div>
               </div>
 
@@ -177,8 +185,15 @@
 
 
       function deleteDeck(id) {
-        decks = decks.filter((deck) => deck.id !== id);
+
+        // remove the deck and card
+        decks = decks.filter(deck => deck.id !== id);
+        cards = cards.filter(card => card.deckId !== id);
+
+        // save both
         localStorage.setItem("decks", JSON.stringify(decks));
+        localStorage.setItem("cards", JSON.stringify(cards));
+        
         renderDecks();
       }
 
