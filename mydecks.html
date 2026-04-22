@@ -37,7 +37,13 @@
     <div class="spacer">
       <div class="mdtopcontainer">
         <h1>My Decks</h1>
-        <button onclick="addDeck()" class="mainbtn" id="newdeckbtn">+ New Deck</button>
+        <div class="buttoncontainertop">
+          <input type="file" id="importFile" accept=".txt" style="display:none" onchange="importDeck(event)">
+          <button class="mainbtn" onclick="document.getElementById('importFile').click()">
+            Import Deck
+          </button>
+          <button onclick="addDeck()" class="mainbtn" id="newdeckbtn">+ New Deck</button>
+        </div>
       </div>
 
       <a class="subtitle">Organize your flashcard by subject. Create a deck now up to 2 decks!</a>
@@ -84,6 +90,67 @@
           "No. of Cards: " + cards.length;
       }
 
+      // Import decks and cards
+      function importDeck(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    const text = e.target.result.trim();
+    const lines = text.split("\n");
+
+    if (lines.length < 2) {
+      alert("Invalid file format!");
+      return;
+    }
+
+    const deckName = lines[0].trim();
+
+    if (decks.length >= 4) {
+      alert("You can only have up to 4 decks!");
+      return;
+    }
+
+    const newDeckId = Date.now();
+
+    // create deck
+    const newDeck = {
+      id: newDeckId,
+      name: deckName,
+      cards: [],
+      icon: "deckico/general.png"
+    };
+
+    decks.push(newDeck);
+
+    // create cards
+    for (let i = 1; i < lines.length; i++) {
+      const parts = lines[i].split("|");
+
+      if (parts.length < 2) continue;
+
+      const newCard = {
+        id: Date.now() + i,
+        deckId: newDeckId, // ⭐ THIS is what your deck page relies on
+        question: parts[0].trim(),
+        answer: parts[1].trim(),
+        difficulty: parts[2] ? parts[2].trim() : "Easy" // optional
+      };
+
+      cards.push(newCard);
+    }
+
+    localStorage.setItem("decks", JSON.stringify(decks));
+    localStorage.setItem("cards", JSON.stringify(cards));
+
+    renderDecks();
+  };
+
+  reader.readAsText(file);
+}
+
       // Save new deck to local storage
       function saveDeck() {
         const name = document.getElementById("deckName").value;
@@ -94,8 +161,8 @@
         }
 
         // Limit Deck Amount
-        if (decks.length >= 2) {
-          alert("You can only create up to 2 decks! Download the App now to have unlimited Decks");
+        if (decks.length >= 4) {
+          alert("You can only create up to 4 decks! Download the App now to have unlimited Decks");
           return;
         }
 

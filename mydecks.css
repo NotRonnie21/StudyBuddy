@@ -120,3 +120,8 @@
   width: 40px;
   cursor: pointer;
 }
+
+.buttoncontainertop {
+  display: flex;
+  gap: 10px;
+}
