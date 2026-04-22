@@ -1,0 +1,26 @@
+Prefix(Easy) and Suffix(Medium) [Human Bio]
+Definition of inter-|between|Easy
+Definition of hyper-|above/greater|Easy
+Definition of a/an|without/lack of|Easy
+Definition of arthro-|joints|Easy
+Definition of cardio-|heart|Easy
+Definition of cerebro-|brain|Easy
+Definition of chondro-|cartilage|Easy
+Definition of gastro-|stomach|Easy
+Definition of haemo-|blood|Easy
+Definition of hepato-|liver|Easy
+Definition of histo-|tissue|Easy
+Definition of leuco-|white blood cell|Easy
+Definition of myo-|muscle|Easy
+Definition of nephro-|kidney|Easy
+Definition of neuro-|nerve|Easy
+Definition of osteo-|bone|Easy
+Definition of phago-|consume|Easy
+Definition of -aemia|blood condition|Medium
+Definition of -cyte|cell|Medium
+Definition of -itis|inflamation|Medium
+Definition of -lysis|breaking|Medium
+Definition of -ology|study/science of|Medium
+Definition of -osis|condition|Medium
+Definition of -some|body|Medium
+Definition of -uria|urine|Medium
